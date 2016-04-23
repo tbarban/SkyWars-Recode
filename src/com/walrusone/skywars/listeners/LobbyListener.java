@@ -21,8 +21,6 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import com.walrusone.skywars.SkyWarsReloaded;
 
 public class LobbyListener implements Listener {
-	
-	
 		
 	@EventHandler
 	public void onFoodChange(FoodLevelChangeEvent e) {

@@ -92,7 +92,6 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler (priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		
 		Location spawn = SkyWarsReloaded.getCfg().getSpawn();
 		SkyWarsReloaded.getPC().addPlayer(e.getPlayer().getUniqueId());
 		if (SkyWarsReloaded.getInvC().playerExists(e.getPlayer().getUniqueId().toString())) {
@@ -275,7 +274,6 @@ public class PlayerListener implements Listener {
         }
 
         if (!gPlayer.inGame()) {
-        	
         	if (e.getAction() == Action.PHYSICAL && e.getClickedBlock().getType() == Material.STONE_PLATE) {
         		if (SkyWarsReloaded.getCfg().pressurePlateJoin()) {
         			Location spawn = SkyWarsReloaded.getCfg().getSpawn();
