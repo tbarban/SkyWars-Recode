@@ -88,24 +88,6 @@ public class SkyWarsReloaded extends JavaPlugin implements PluginMessageListener
     
     public void onEnable() {
     	instance = this;
-		
-    	String packageName = this.getServer().getClass().getPackage().getName();
-        String version = packageName.substring(packageName.lastIndexOf('.') + 1);
-
-        try {
-            final Class<?> clazz = Class.forName("com.walrusone.skywars.nms." + version + ".NMSHandler");
-            // Check if we have a NMSHandler class at that location.
-            if (NMS.class.isAssignableFrom(clazz)) { // Make sure it actually implements NMS
-                this.nmsHandler = (NMS) clazz.getConstructor().newInstance(); // Set our handler
-            }
-        } catch (final Exception e) {
-            e.printStackTrace();
-            this.getLogger().severe("Could not find support for this CraftBukkit version.");
-            this.getLogger().info("Check for updates at URL HERE");
-            this.setEnabled(false);
-            return;
-        }
-        this.getLogger().info("Loading support for " + version);
         
     	getConfig().options().copyDefaults(true);
         saveDefaultConfig();
