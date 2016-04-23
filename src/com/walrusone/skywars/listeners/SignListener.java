@@ -103,55 +103,56 @@ public class SignListener implements Listener {
              }
 		}
     }
-    
     @EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		Player player = e.getPlayer();
-		GamePlayer gPlayer = SkyWarsReloaded.getPC().getPlayer(player.getUniqueId());
-    	if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-    		 if (e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST ) {
-    				 Sign s = (Sign) e.getClickedBlock().getState();
-    				 String line1 = ChatColor.stripColor(s.getLine(0));
-    				 if (line1.equalsIgnoreCase(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', new Messaging.MessageFormatter().format("signJoinSigns.line1"))))) {
-    		        		if (SkyWarsReloaded.getCfg().signJoinMode()) {
-    		        			Location spawn = SkyWarsReloaded.getCfg().getSpawn();
-    		        			if (spawn != null) {
-    		        				String world = s.getBlock().getWorld().getName();
-        	    		        	String lobbyWorld = spawn.getWorld().getName();
-        	    		    		if (world.equalsIgnoreCase(lobbyWorld)) {
-           	       	         		 int x = s.getBlock().getX();
-           	    	         		 int y = s.getBlock().getY();
-           	    	         		 int z = s.getBlock().getZ();
-           	    	         		 File signJoinFile = new File(SkyWarsReloaded.get().getDataFolder(), "signJoinGames.yml");
-           	    	         		 if (signJoinFile.exists()) {
-           	    	         			FileConfiguration storage = YamlConfiguration.loadConfiguration(signJoinFile);
-           	    	                    for (String gameNumber : storage.getConfigurationSection("games.").getKeys(false)) {
-           	    	                    	String world1 = storage.getString("games." + gameNumber + ".world");
-           	    	                    	int x1 = storage.getInt("games." + gameNumber + ".x");
-           	    	                    	int y1 = storage.getInt("games." + gameNumber + ".y");
-           	    	                    	int z1 = storage.getInt("games." + gameNumber + ".z");
-           	    	                    	if (x1 == x && y1 == y && z1 == z && world.equalsIgnoreCase(world1)) {
-           	    	                    		if (e.getPlayer().hasPermission("swr.play")) {
-           	    	                    			Game game = SkyWarsReloaded.getGC().getGame(Integer.valueOf(gameNumber));
-           	    	                    			if (game != null) {
-           	        	                    			if (!game.isFull() && game.getState() == GameState.PREGAME) {
-           	        	                    				game.addPlayer(gPlayer);
-           	        	                    			}
-           	    	                    			}
-           	    	                    		}
-           	    	                    	}	
-           	    	                    }
-           	    	                  }
-        	    		    		} else {
-        	    		    			e.getPlayer().sendMessage(ChatColor.RED + "YOU CAN ONLY JOIN GAMES THROUGH SIGNS IN THE LOBBY WORLD");
-        	    		    		}
-    		        			}
-    	    	             } else {
-    	    	            		e.getPlayer().sendMessage(ChatColor.RED + "SIGN JOIN MODE IS NOT ENABLED");
-    	    	        }
-    		        }
-    		 }
+   	 if (e.getPlayer().hasPermission("swr.play")) {
+			Player player = e.getPlayer();
+			GamePlayer gPlayer = SkyWarsReloaded.getPC().getPlayer(player.getUniqueId());
+	    	if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+	    		 if (e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST ) {
+	    			 player.sendMessage("Oh cock.");
+	    		
+	    				 Sign s = (Sign) e.getClickedBlock().getState();
+	    				 String line1 = ChatColor.stripColor(s.getLine(0));
+	    				 if (line1.equalsIgnoreCase(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', new Messaging.MessageFormatter().format("signJoinSigns.line1"))))) {
+	    		        		if (SkyWarsReloaded.getCfg().signJoinMode()) {
+	    		        			Location spawn = SkyWarsReloaded.getCfg().getSpawn();
+	    		        			if (spawn != null) {
+	    		        				String world = s.getBlock().getWorld().getName();
+	        	    		        	String lobbyWorld = spawn.getWorld().getName();
+	        	    		    		if (world.equalsIgnoreCase(lobbyWorld)) {
+	           	       	         		 int x = s.getBlock().getX();
+	           	    	         		 int y = s.getBlock().getY();
+	           	    	         		 int z = s.getBlock().getZ();
+	           	    	         		 File signJoinFile = new File(SkyWarsReloaded.get().getDataFolder(), "signJoinGames.yml");
+	           	    	         		 if (signJoinFile.exists()) {
+	           	    	         			FileConfiguration storage = YamlConfiguration.loadConfiguration(signJoinFile);
+	           	    	                    for (String gameNumber : storage.getConfigurationSection("games.").getKeys(false)) {
+	           	    	                    	String world1 = storage.getString("games." + gameNumber + ".world");
+	           	    	                    	int x1 = storage.getInt("games." + gameNumber + ".x");
+	           	    	                    	int y1 = storage.getInt("games." + gameNumber + ".y");
+	           	    	                    	int z1 = storage.getInt("games." + gameNumber + ".z");
+	           	    	                    	if (x1 == x && y1 == y && z1 == z && world.equalsIgnoreCase(world1)) {
+	           	    	                    		Game game = SkyWarsReloaded.getGC().getGame(Integer.valueOf(gameNumber));
+	           	    	                    		if (game != null) {
+	           	        	                    		if (!game.isFull() && game.getState() == GameState.PREGAME) {
+	           	        	                    			game.addPlayer(gPlayer);
+	           	        	                    		}
+	           	    	                    		}
+	           	    	                    	}
+	           	    	                    }	
+	           	    	                   }
+	           	    	                 }
+	        	    		    		} else {
+	        	    		    			e.getPlayer().sendMessage(ChatColor.RED + "YOU CAN ONLY JOIN GAMES THROUGH SIGNS IN THE LOBBY WORLD");
+	        	    		    		}
+	    		        			}
+	    	    	             } else {
+	    	    	            		e.getPlayer().sendMessage(ChatColor.RED + "SIGN JOIN MODE IS NOT ENABLED");
+	    	    	        }
+	    		        }
+	    		 }
+	    	}
     	}
 	}
-    
-}
+
